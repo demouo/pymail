@@ -1,0 +1,21 @@
+# Gmail配置
+smtp_server: smtp.gmail.com
+smtp_port: 465  # Gmail推荐使用SSL端口465
+sender_email: your-email@gmail.com
+password: your-app-password  # 对于Gmail，需要使用应用专用密码
+recipients:
+  - recipient1@example.com
+  - recipient2@example.com
+timeout_seconds: 300  # 发送邮件的最小间隔时间（秒）
+
+# QQ邮箱配置示例
+# smtp_server: smtp.qq.com
+# smtp_port: 465  # QQ邮箱使用SSL端口465
+# sender_email: your-qq-number@qq.com
+# password: your-authorization-code  # QQ邮箱需要使用授权码
+
+# 163邮箱配置示例
+# smtp_server: smtp.163.com
+# smtp_port: 465  # 163邮箱使用SSL端口465
+# sender_email: your-account@163.com
+# password: your-authorization-code  # 163邮箱需要使用授权码
