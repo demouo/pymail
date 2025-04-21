@@ -3,6 +3,7 @@ from typing import List, Optional
 from dataclasses import dataclass
 from dotenv import load_dotenv
 import yaml
+from .i18n import I18n
 
 
 @dataclass
@@ -12,12 +13,13 @@ class EmailConfig:
     sender_email: str
     password: str
     recipients: List[str]
-    timeout_seconds: int = 300  # 默认5分钟超时
+    time_interval: Optional[int] = None
 
 
 @dataclass
 class MachineConfig:
-    id: str = "Specific-Id-Of-PyMail"
+    machine_id: str = "Specific-Id-Of-PyMail"
+    project_id: str = "pymail"
     service_enabled: bool = True
 
 
@@ -34,7 +36,7 @@ class ConfigManager:
 
     def _load_config(self):
         # 首先尝试从环境变量加载
-        load_dotenv()
+        load_dotenv(dotenv_path=f"{os.getcwd()}/.env")
 
         # 尝试从YAML文件加载配置
         config_path = os.getenv("PYMAIL_CONFIG_PATH", "pymail_config.yaml")
@@ -60,16 +62,17 @@ class ConfigManager:
                 if os.getenv("EMAIL_RECIPIENTS")
                 else config.get("recipients", [])
             ),
-            timeout_seconds=int(
-                os.getenv("EMAIL_TIMEOUT", config.get("timeout_seconds", 300))
+            time_interval=int(
+                os.getenv("EMAIL_TIME_INTERVAL", config.get("time_interval", 300))
             ),
         )
 
         # 创建MachineConfig实例，优先使用环境变量
         self._machine_config = MachineConfig(
-            id=os.getenv(
+            machine_id=os.getenv(
                 "MACHINE_ID", config.get("machine_id", "Specific-Id-Of-PyMail")
             ),
+            project_id=os.getenv("PROJECT_ID", config.get("project_id", "pymail")),
             service_enabled=str(
                 os.getenv(
                     "MACHINE_SERVICE_ENABLED",
@@ -78,6 +81,16 @@ class ConfigManager:
             ).lower()
             != "false",
         )
+
+        # 发现没有配置文件，则输出提示信息
+        if (
+            self._email_config.sender_email == ""
+            and self._email_config.password == ""
+            and self._email_config.recipients == []
+        ):
+            raise ValueError(
+                "No pymail configuration found, please configure the following in the .env file:\nSMTP_SERVER=your_smtp_server\nSMTP_PORT=your_smtp_port\nSENDER_EMAIL=your_sender_email\nEMAIL_PASSWORD=your_email_password\nEMAIL_RECIPIENTS=your_email_recipients_separated_by_comma\nOther configurations please refer to the pymail_config.yaml.example file in https://github.com/demouo/pymail/blob/main/pymail_config.yaml.example"
+            )
 
     @property
     def email_config(self) -> EmailConfig:

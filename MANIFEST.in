@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+include pymail_config.yaml.example
+include .env.example 

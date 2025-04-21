@@ -7,7 +7,7 @@ logger = logging.basicConfig(level=logging.INFO)
 
 def test_email_sender():
     sender = EmailSender()
-    sender.send_message("test error from mac.")
+    sender.send_error("test error from mac.")
 
 
 @email_on_error(task_name="testing! testing! testing!", subject=None)

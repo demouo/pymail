@@ -1,0 +1,39 @@
+en:
+  # Email related messages
+  connecting_ssl: "Connecting to SMTP server: {}:{} (SSL)"
+  connecting_starttls: "Connecting to SMTP server: {}:{} (STARTTLS)"
+  ssl_failed: "SSL connection failed, trying STARTTLS: {}"
+  email_sent: "Email sent successfully!"
+  email_error: "Error occurred while sending email: {}"
+  smtp_info: "SMTP server: {}"
+  port_info: "Port: {}"
+  sender_info: "Sender: {}"
+  recipients_info: "Recipients: {}"
+  error_occurred: "Error occurred in function {}:\n\n{}"
+  timeout_warning: "This error notification was skipped due to rate limiting (only send once within {} seconds)"
+  error_notification_subject: "[PyMail] {} Task:[{}-{}] Program Error Notification"
+  error_notification_body: "Time: {}\n\nError Information:\n{}"
+  stats_notification_subject: "[PyMail] {} Task:[{}-{}] Statistics Notification"
+  stats_notification_body: "Time: {}\nSpent Time: {}\n\nStatistics:\n{}"
+  # Stats related messages
+  format_stats_summary: "Function: {},\nTotal calls: {},\nSuccesses: {},\nFailures: {},\nFailure rate: {:.2%}"
+
+zh:
+  # 邮件相关消息
+  connecting_ssl: "正在连接到SMTP服务器: {}:{} (SSL)"
+  connecting_starttls: "正在连接到SMTP服务器: {}:{} (STARTTLS)"
+  ssl_failed: "SSL连接失败，尝试STARTTLS: {}"
+  email_sent: "邮件发送成功！"
+  email_error: "发送邮件时发生错误: {}"
+  smtp_info: "SMTP服务器: {}"
+  port_info: "端口: {}"
+  sender_info: "发件人: {}"
+  recipients_info: "收件人: {}"
+  error_occurred: "函数 {} 执行时发生错误:\n\n{}"
+  timeout_warning: "由于发送频率限制，此错误通知已被跳过（{}秒内只发送一次）"
+  error_notification_subject: "[PyMail] {} 任务:[{}-{}] 程序错误通知"
+  error_notification_body: "时间: {}\n\n错误信息:\n{}" 
+  stats_notification_subject: "[PyMail] {} 任务:[{}-{}] 统计通知"
+  stats_notification_body: "时间: {}\n耗时: {}\n\n统计信息:\n{}" 
+  # 统计相关消息
+  format_stats_summary: "函数: {},\n总调用次数: {},\n成功次数: {},\n失败次数: {},\n失败率: {:.2%}"

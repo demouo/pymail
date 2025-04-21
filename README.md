@@ -26,7 +26,7 @@ A simple yet powerful Python error email notification tool. Automatically sends 
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install pymail-notify
 ```
 
 ## Configuration
@@ -87,7 +87,7 @@ You can configure email settings through:
 ## Usage Examples
 
 ```python
-from py_email import email_on_error
+from pymail import email_on_error
 
 @email_on_error(subject="Custom Error Subject")
 def my_function():
@@ -95,7 +95,7 @@ def my_function():
     raise Exception("An error occurred")
 
 # Or directly use EmailSender
-from py_email import EmailSender
+from pymail import EmailSender
 
 sender = EmailSender()
 try:
@@ -192,7 +192,7 @@ pip install -r requirements.txt
 ## 使用示例
 
 ```python
-from py_email import email_on_error
+from pymail import email_on_error
 
 @email_on_error(subject="自定义错误主题")
 def my_function():
@@ -200,7 +200,7 @@ def my_function():
     raise Exception("发生了一个错误")
 
 # 或者直接使用 EmailSender
-from py_email import EmailSender
+from pymail import EmailSender
 
 sender = EmailSender()
 try:
