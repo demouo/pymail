@@ -47,6 +47,7 @@ def track_stats(
     subject: Optional[str] = None,
     time_interval: int = 3600,
     success_condition: Optional[Callable] = None,
+    ignore_success_condition_failed: bool = False,
 ):
     """
     函数执行统计装饰器
@@ -56,6 +57,7 @@ def track_stats(
         subject: 可选的邮件主题
         time_interval: 时间间隔，单位为秒
         success_condition: 成功条件，为True时记录成功，为False时记录失败
+        ignore_success_condition_failed: 是否忽略成功条件失败，如果为True，则不记录这种失败, 即只认为报错才是失败，其他不算失败
 
     跟踪记录函数的执行情况，包括：
     - 总调用次数
@@ -78,7 +80,10 @@ def track_stats(
                         if success_condition(result):
                             stats_manager.record_execution(func.__name__, True)
                         else:
-                            stats_manager.record_execution(func.__name__, False)
+                            # 失败了，且不忽略失败，则记录失败
+                            # 适用场景：虽然失败了，但是不计入失败次数，只有报错时记录失败
+                            if not ignore_success_condition_failed:
+                                stats_manager.record_execution(func.__name__, False)
                     except Exception as e:
                         traceback.print_exc()
                         print(f"[pymail] track_stats success condition error: {e}")

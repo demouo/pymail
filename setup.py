@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pymail-notify",  # 因为 pymail 可能已被使用，所以使用 pymail-notify
-    version="0.1.3",
+    version="0.1.5",
     author="xingmo",
     author_email="xingmo_scut@163.com",
     description="一个简单而强大的Python邮件通知工具",

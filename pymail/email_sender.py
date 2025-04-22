@@ -9,6 +9,8 @@ import threading
 import time
 import queue
 
+from .tools import get_time_duration
+
 from .config import ConfigManager, EmailConfig, MachineConfig
 from .i18n import I18n
 
@@ -67,9 +69,9 @@ class EmailSender:
         time_interval = time_interval or self._email_config.time_interval
         if current_seconds - self._last_sent_time[task_name] < time_interval:
             return
-        time_duration = current_seconds - self._start_time
-        time_duration = time.strftime("%H:%M:%S", time.gmtime(time_duration))
 
+        time_duration = current_seconds - self._start_time
+        time_duration_str = get_time_duration(int(time_duration))
         curr_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         if type == "error":
             self.send_error(
@@ -77,7 +79,7 @@ class EmailSender:
                 subject=subject,
                 task_name=task_name,
                 curr_time=curr_time,
-                time_duration=time_duration,
+                time_duration=time_duration_str,
             )
         elif type == "stats":
             self.send_stats(
@@ -85,7 +87,7 @@ class EmailSender:
                 subject=subject,
                 task_name=task_name,
                 curr_time=curr_time,
-                time_duration=time_duration,
+                time_duration=time_duration_str,
             )
         else:
             raise ValueError(f"Invalid email type: {type}")

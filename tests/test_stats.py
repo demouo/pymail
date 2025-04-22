@@ -12,13 +12,17 @@ def your_function():
 
 
 # 同时使用错误通知和统计
-@track_stats(time_interval=10, success_condition=lambda x: x == "abcd")
+@track_stats(
+    time_interval=10,
+    success_condition=lambda x: x > 0.5,
+    ignore_success_condition_failed=True,
+)
 @email_on_error()
 def your_important_function():
     try:
         p = random.random()
-        # if p < 0.3:
-        #     raise Exception("随机异常")
+        if p < 0.3:
+            raise Exception("随机异常")
         return p
     except Exception as e:
         raise e
